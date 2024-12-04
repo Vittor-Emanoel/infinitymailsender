@@ -1,3 +1,4 @@
+import { makeImportContactsUseCase } from "factories/make-import-contacts-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { isXlsxFile } from "helpers/valid-format-xlsx";
 import * as XLSX from "xlsx";
@@ -38,7 +39,9 @@ export async function importContacts(
         identifier: row.identifier,
       }));
 
-    console.log(contactsToJSON);
+    const importContactsUseCase = makeImportContactsUseCase();
+
+    await importContactsUseCase.execute(contactsToJSON);
   } catch (error) {
     return reply.status(500).send({
       message: "Error processing the file.",
