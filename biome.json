@@ -7,6 +7,9 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"formatter": {
+		"indentWidth": 4
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -30,6 +33,7 @@
 	},
 	"javascript": {
 		"formatter": {
+			"indentWidth": 4,
 			"quoteStyle": "single",
 			"trailingComma": "all",
 			"semicolons": "asNeeded",
