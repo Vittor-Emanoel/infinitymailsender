@@ -1,6 +1,6 @@
 export type Contact = {
     id: string
-    identifier: string
+    name: string
     email: string
     subscribed: boolean
 }

@@ -1,50 +1,31 @@
+import { InvalidFileFormatError } from 'errors/invalid-file-format-error'
 import { makeImportContactsUseCase } from 'factories/make-import-contacts-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { isXlsxFile } from 'helpers/valid-format-xlsx'
-import * as XLSX from 'xlsx'
-import { z } from 'zod'
-
-const ContactSchemaRequest = z.object({
-    name: z.string(),
-    identifier: z.string().email(),
-})
-
-type ContactSchemaRequest = z.infer<typeof ContactSchemaRequest>
 
 export async function importContacts(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
+    //TODO: REFACTORRRR
     try {
         const file = await request.file()
-
-        if (!file) {
-            return reply.status(400).send({ message: 'no file found.' })
-        }
-
-        if (!isXlsxFile(file.mimetype)) {
+        if (file) {
+            const importContactsUseCase = makeImportContactsUseCase()
+            await importContactsUseCase.execute(file)
+        } else {
             return reply.status(400).send({
-                message: 'Invalid file format. Upload an Excel file (.xlsx).',
+                message: 'file is required!',
             })
         }
-
-        const workbook = XLSX.read(await file.toBuffer(), { type: 'buffer' })
-        const sheetName = workbook.SheetNames[0]
-        const worksheet = workbook.Sheets[sheetName]
-
-        const contactsToJSON = XLSX.utils
-            .sheet_to_json<ContactSchemaRequest>(worksheet)
-            .map(row => ({
-                name: row.name,
-                identifier: row.identifier,
-            }))
-
-        const importContactsUseCase = makeImportContactsUseCase()
-
-        await importContactsUseCase.execute(contactsToJSON)
     } catch (error) {
+        if (error instanceof InvalidFileFormatError) {
+            return reply.status(400).send({
+                message: error.message,
+            })
+        }
+        console.log(error, 'oq deu?')
         return reply.status(500).send({
-            message: 'Error processing the file.',
+            message: 'Internal server error.',
         })
     }
 }

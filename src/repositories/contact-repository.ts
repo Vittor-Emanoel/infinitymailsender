@@ -5,7 +5,7 @@ export class ContactRepository implements IContactRepository {
     async createMany(contacts: Omit<Contact, 'id' | 'subscribed'>[]) {
         await prisma.contact.createMany({
             data: contacts.map(contact => ({
-                identifier: contact.identifier,
+                name: contact.name,
                 email: contact.email,
             })),
         })
@@ -30,7 +30,7 @@ export class ContactRepository implements IContactRepository {
             select: {
                 id: true,
                 email: true,
-                identifier: true,
+                name: true,
                 subscribed: true,
             },
         })
@@ -44,7 +44,7 @@ export class ContactRepository implements IContactRepository {
             select: {
                 id: true,
                 email: true,
-                identifier: true,
+                name: true,
                 subscribed: true,
             },
         })
@@ -55,7 +55,7 @@ export class ContactRepository implements IContactRepository {
             select: {
                 id: true,
                 email: true,
-                identifier: true,
+                name: true,
                 subscribed: true,
             },
         })
