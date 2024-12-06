@@ -1,5 +1,5 @@
-import { ContactRepository } from 'repositories/contact-repository'
-import { ImportContactsUseCase } from 'use-cases/import-contacts'
+import { ContactRepository } from '@/repositories/prisma/prisma-contact-repository'
+import { ImportContactsUseCase } from '@/use-cases/import-contacts'
 
 export function makeImportContactsUseCase() {
     const importContactsRepository = new ContactRepository()
