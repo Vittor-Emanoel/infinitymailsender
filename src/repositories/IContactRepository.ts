@@ -1,9 +1,4 @@
-export type Contact = {
-    id: string
-    name: string
-    email: string
-    subscribed: boolean
-}
+import { Contact } from '@/entities/Contact'
 
 export interface IContactRepository {
     createMany: (

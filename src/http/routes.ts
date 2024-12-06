@@ -1,4 +1,4 @@
-import { importContacts } from 'controllers/import-contacts'
+import { importContacts } from '@/http/controllers/import-contacts'
 import { FastifyInstance } from 'fastify'
 
 export async function appRoutes(app: FastifyInstance) {

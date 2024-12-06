@@ -1,5 +1,6 @@
-import { prisma } from 'database/prisma-client'
-import { Contact, IContactRepository } from 'interfaces/contact-interface'
+import { Contact } from '@/entities/Contact'
+import { prisma } from '@/lib/prisma-client'
+import { IContactRepository } from '../IContactRepository'
 
 export class ContactRepository implements IContactRepository {
     async createMany(contacts: Omit<Contact, 'id' | 'subscribed'>[]) {

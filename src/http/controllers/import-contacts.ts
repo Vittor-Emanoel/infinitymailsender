@@ -1,5 +1,5 @@
-import { InvalidFileFormatError } from 'errors/invalid-file-format-error'
-import { makeImportContactsUseCase } from 'factories/make-import-contacts-use-case'
+import { InvalidFileFormatError } from '@/use-cases/errors/invalid-file-format-error'
+import { makeImportContactsUseCase } from '@/use-cases/factories/make-import-contacts-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function importContacts(

@@ -1,7 +1,8 @@
+import { isXlsxFile } from '@/utils/valid-format-xlsx'
 import { MultipartFile } from '@fastify/multipart'
-import { InvalidFileFormatError } from 'errors/invalid-file-format-error'
-import { isXlsxFile } from 'helpers/valid-format-xlsx'
-import { IContactRepository } from 'interfaces/contact-interface'
+
+import { IContactRepository } from '@/repositories/IContactRepository'
+import { InvalidFileFormatError } from '@/use-cases/errors/invalid-file-format-error'
 import * as XLSX from 'xlsx'
 import { z } from 'zod'
 
