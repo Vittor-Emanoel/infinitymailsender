@@ -1,7 +1,10 @@
+import { IContactRepository } from 'interfaces/contact-interface'
+
 interface IImportContactsUseCaseRequest {
     name: string
     identifier: string //TODO: alterar isso aqui
 }
+
 export class ImportContactsUseCase {
     constructor(private importContactsRepository: IContactRepository) {}
     async execute(data: IImportContactsUseCaseRequest[]) {
@@ -11,7 +14,6 @@ export class ImportContactsUseCase {
             data.map(contact => ({
                 email: contact.identifier,
                 identifier: contact.name,
-                subscribed: false,
             })),
         )
     }
